@@ -1,0 +1,41 @@
+from django.urls import path
+from .views import (ResumeList,
+                    ResumeCreateView,
+                    ResumeDetailView,
+                    PersonalInfoCreateView,
+                    WorkExperienceCreateView,
+                    SkillCreateView,
+                    EducationCreateView,
+                    PersonalInfoUpdateView,
+                    WorkExperienceUpdateView,
+                    SkillUpdateView,
+                    EducationUpdateView,
+                    ResumeStyleUpdateView,
+                    ResumeDeleteView,
+                    WorkExperienceDeleteView,
+                    SkillDeleteView,
+                    EducationDeleteView,
+                    ResumePreview)
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='resume-builder-home'),
+    path('dashboard/', ResumeList.as_view(), name='resume-builder-dashboard'),
+    path('resume/new/', ResumeCreateView.as_view(), name='resume-create'),
+    path('resume/<int:pk>/style-update/', ResumeStyleUpdateView.as_view(), name='resume-style-update'),
+    path('resume/<int:pk>/delete/', ResumeDeleteView.as_view(), name='resume-delete'),
+    path('resume/<int:pk>/', ResumeDetailView.as_view(), name='resume-detail'),
+    path('resume/<int:resume_id>/personal-info/', PersonalInfoCreateView.as_view(), name='personal-info-create'),
+    path('resume/<int:resume_id>/personal-info/<int:pk>/update/', PersonalInfoUpdateView.as_view(), name='personal-info-update'),
+    path('resume/<int:resume_id>/we/new/', WorkExperienceCreateView.as_view(), name='work-experience-create'),
+    path('resume/<int:resume_id>/we/<int:pk>/update/', WorkExperienceUpdateView.as_view(), name='work-experience-update'),
+    path('resume/<int:resume_id>/we/<int:pk>/delete/', WorkExperienceDeleteView.as_view(), name='work-experience-delete'),
+    path('resume/<int:resume_id>/skill/new/', SkillCreateView.as_view(), name='skill-create'),
+    path('resume/<int:resume_id>/skill/<int:pk>/update/', SkillUpdateView.as_view(), name='skill-update'),
+    path('resume/<int:resume_id>/skill/<int:pk>/delete/', SkillDeleteView.as_view(), name='skill-delete'),
+    path('resume/<int:resume_id>/education/new/', EducationCreateView.as_view(), name='education-create'),
+    path('resume/<int:resume_id>/education/<int:pk>/update/', EducationUpdateView.as_view(), name='education-update'),
+    path('resume/<int:resume_id>/education/<int:pk>/delete/', EducationDeleteView.as_view(), name='education-delete'),
+    path('about/', views.about, name='resume-builder-about'),
+    path('resume/<int:pk>/preview/', ResumePreview.as_view(), name='resume-preview')
+]

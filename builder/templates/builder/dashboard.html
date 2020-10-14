@@ -1,0 +1,19 @@
+{% extends "builder/base.html" %}
+{% load static %}
+{% block content %}
+    {% if resumes %}
+        <a class="btn btn-outline-secondary" href="{% url 'resume-create' %}">New Resume</a>
+        {% for resume in resumes %}
+            <div class="media">
+                <img class="img-thumbnail mt-2" width="137" height="179" src="{{ resume.style.image.url }}"/>
+                <div class="media-body">
+                    <h5><a class="account-heading ml-4" href="{% url 'resume-detail' resume.id %}">{{ resume.title }}</a></h5>
+                    <p class="text-secondary ml-4">on {{ resume.updated_at }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>Create Your First Resume!</h1>
+        <a class="btn btn-outline-secondary" href="{% url 'resume-create' %}">Create</a>
+    {% endif %}
+{% endblock content %}

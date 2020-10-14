@@ -1,0 +1,151 @@
+{% extends "builder/resume_base.html" %}
+{% block css_file %}
+    <link type="text/css" rel="stylesheet" href="{{ object.style.css_file.url }}">
+{% endblock css_file %}
+
+{% block add_personal_info %}
+    {% if object.personalinfo %}
+        <div class="mainDetails">
+            <div id="headshot" class="quickFade">
+                <img src="{{ object.personalinfo.image.url }}"/>
+            </div>
+
+            <div id="name">
+                <h1 class="quickFade delayTwo">{{ object.personalinfo.first_name }} {{ object.personalinfo.last_name }}</h1>
+                <h2 class="quickFade delayThree">{{ object.personalinfo.job_title }}</h2>
+            </div>
+
+            <div id="contactDetails" class="quickFade delayFour">
+                <ul>
+                    <li>e: {{ object.personalinfo.email }}</li>
+                    <li>m: {{ object.personalinfo.mobile }}</li>
+                    <li>a: {{ object.personalinfo.address }}</li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="mainArea" class="quickFade delayFive">
+            <section>
+                <article>
+                    <div class="sectionTitle">
+                        <h1><a href="{% url 'personal-info-update' object.id object.personalinfo.id %}">Personal Profile</a></h1>
+                    </div>
+
+                    <div class="sectionContent">
+                        <p>{{ object.personalinfo.personal_profile }}</p>
+                    </div>
+                </article>
+                <div class="clear"></div>
+            </section>
+    {% else %}
+        <div class="mainDetails">
+            <div id="headshot" class="quickFade">
+
+            </div>
+
+            <div id="name">
+                <h1 class="quickFade delayTwo"> </h1>
+                <h2><a class="quickFade delayThree" href="{% url 'personal-info-create' object.pk %}">Add Personal Info and Photo</a></h2>
+            </div>
+
+            <div id="contactDetails" class="quickFade delayFour">
+                <ul>
+                    <li> </li>
+                    <li> </li>
+                    <li> </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="mainArea" class="quickFade delayFive">
+            <section>
+                <article>
+                    <div class="sectionTitle">
+                        <h1>Personal Profile</h1>
+                    </div>
+
+                    <div class="sectionContent">
+                        <h3><a href="{% url 'personal-info-create' object.pk %}">Add Personal Profile</a></h3>
+                    </div>
+                </article>
+                <div class="clear"></div>
+            </section>
+    {% endif %}
+{% endblock add_personal_info %}
+
+{% block add_we %}
+    <section>
+        <div class="sectionTitle">
+            <h1>Work Experience</h1>
+        </div>
+        <div class="sectionContent">
+            {% for we in object.workexperience_set.all %}
+                <article>
+					<h2><a href="{% url 'work-experience-update' we.resume.id we.id %}">{{ we.job_title }} at {{ we.company }}</a></h2>
+					<p class="subDetails">{{ we.from_date }} - {{ we.to_date }}</p>
+					<p>{{ we.description }}</p>
+				</article>
+            {% empty %}
+                <h3><a href="{% url 'work-experience-create' object.pk %}">Add Work Experience</a></h3>
+            {% endfor %}
+            <h3><a href="{% url 'work-experience-create' object.pk %}">Add Work Experience</a></h3>
+        </div>
+        <div class="clear"></div>
+    </section>
+{% endblock add_we %}
+
+{% block add_skill %}
+    <section>
+        <div class="sectionTitle">
+            <h1>Key Skills</h1>
+        </div>
+
+        <div class="sectionContent">
+            <ul class="keySkills">
+                {% for skill in object.skill_set.all %}
+                    <li><a href="{% url 'skill-update' skill.resume.id skill.id %}">{{ skill.skill }}</a></li>
+                {% empty %}
+                    <h3><a href="{% url 'skill-create' object.pk %}">Add A Key Skill</a></h3>
+                {% endfor %}
+                <h3><a href="{% url 'skill-create' object.pk %}">Add A Key Skill</a></h3>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </section>
+{% endblock add_skill %}
+
+{% block add_education %}
+        <section>
+			<div class="sectionTitle">
+				<h1>Education</h1>
+			</div>
+
+			<div class="sectionContent">
+                {% for ed in object.education_set.all %}
+                    <article>
+                        <h2><a href="{% url 'education-update' ed.resume.id ed.id %}">{{ ed.alma_mater }}</a></h2>
+                        <p class="subDetails">{{ ed.from_date }} - {{ ed.to_date }}</p>
+                        <p class="subDetails">{{ ed.qualification }}</p>
+                        <p>{{ ed.description }}</p>
+				    </article>
+                {% empty %}
+                    <h3><a href="{% url 'education-create' object.pk %}">Add Education</a></h3>
+                {% endfor %}
+                <h3><a href="{% url 'education-create' object.pk %}">Add Education</a></h3>
+			</div>
+			<div class="clear"></div>
+		</section>
+
+	</div>
+{% endblock add_education %}
+
+{% block opening_div %}
+    <a class="btn btn-outline-secondary" href="{% url 'resume-preview' object.id %}">Preview</a>
+    <div id="cv" class="instaFade">
+{% endblock opening_div %}
+
+{% block closing_div %}
+    </div>
+{% endblock closing_div %}

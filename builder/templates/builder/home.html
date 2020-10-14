@@ -1,0 +1,10 @@
+{% extends "builder/base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <h2>Create New Resume!</h2>
+        <a class="btn btn-outline-secondary" href="{% url 'resume-create' %}">Start</a>
+    {% else %}
+        <h2>Sign in to Create Your Winning Resume!</h2>
+        <a class="btn btn-outline-secondary" href="{% url 'login' %}">Sign In</a>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,147 @@
+{% extends "builder/resume_base.html" %}
+{% block css_file %}
+    <link type="text/css" rel="stylesheet" href="{{ object.style.css_file.url }}">
+{% endblock css_file %}
+
+{% block add_personal_info %}
+    {% if object.personalinfo %}
+        <div class="mainDetails">
+            <div id="headshot" class="quickFade">
+                <img src="{{ object.personalinfo.image.url }}"/>
+            </div>
+
+            <div id="name">
+                <h1 class="quickFade delayTwo">{{ object.personalinfo.first_name }} {{ object.personalinfo.last_name }}</h1>
+                <h2 class="quickFade delayThree">{{ object.personalinfo.job_title }}</h2>
+            </div>
+
+            <div id="contactDetails" class="quickFade delayFour">
+                <ul>
+                    <li>e: {{ object.personalinfo.email }}</li>
+                    <li>m: {{ object.personalinfo.mobile }}</li>
+                    <li>a: {{ object.personalinfo.address }}</li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="mainArea" class="quickFade delayFive">
+            <section>
+                <article>
+                    <div class="sectionTitle">
+                        <h1>Personal Profile</h1>
+                    </div>
+
+                    <div class="sectionContent">
+                        <p>{{ object.personalinfo.personal_profile }}</p>
+                    </div>
+                </article>
+                <div class="clear"></div>
+            </section>
+    {% else %}
+        <div class="mainDetails">
+            <div id="headshot" class="quickFade">
+
+            </div>
+
+            <div id="name">
+                <h1 class="quickFade delayTwo"> </h1>
+                <h2 class="quickFade delayThree"> </h2>
+            </div>
+
+            <div id="contactDetails" class="quickFade delayFour">
+                <ul>
+                    <li> </li>
+                    <li> </li>
+                    <li> </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="mainArea" class="quickFade delayFive">
+            <section>
+                <article>
+                    <div class="sectionTitle">
+                        <h1>Personal Profile</h1>
+                    </div>
+
+                    <div class="sectionContent">
+                        <h3> </h3>
+                    </div>
+                </article>
+                <div class="clear"></div>
+            </section>
+    {% endif %}
+{% endblock add_personal_info %}
+
+{% block add_we %}
+    <section>
+        <div class="sectionTitle">
+            <h1>Work Experience</h1>
+        </div>
+        <div class="sectionContent">
+            {% for we in object.workexperience_set.all %}
+                <article>
+					<h2>{{ we.job_title }} at {{ we.company }}</h2>
+					<p class="subDetails">{{ we.from_date }} - {{ we.to_date }}</p>
+					<p>{{ we.description }}</p>
+				</article>
+            {% empty %}
+                <h3></h3>
+            {% endfor %}
+        </div>
+        <div class="clear"></div>
+    </section>
+{% endblock add_we %}
+
+{% block add_skill %}
+    <section>
+        <div class="sectionTitle">
+            <h1>Key Skills</h1>
+        </div>
+
+        <div class="sectionContent">
+            <ul class="keySkills">
+                {% for skill in object.skill_set.all %}
+                    <li>{{ skill.skill }}</li>
+                {% empty %}
+                    <h3></h3>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </section>
+{% endblock add_skill %}
+
+{% block add_education %}
+        <section>
+			<div class="sectionTitle">
+				<h1>Education</h1>
+			</div>
+
+			<div class="sectionContent">
+                {% for ed in object.education_set.all %}
+                    <article>
+                        <h2>{{ ed.alma_mater }}</h2>
+                        <p class="subDetails">{{ ed.from_date }} - {{ ed.to_date }}</p>
+                        <p class="subDetails">{{ ed.qualification }}</p>
+                        <p>{{ ed.description }}</p>
+				    </article>
+                {% empty %}
+                    <h3> </h3>
+                {% endfor %}
+			</div>
+			<div class="clear"></div>
+		</section>
+
+	</div>
+{% endblock add_education %}
+
+{% block opening_div %}
+    <div id="cv" class="instaFade">
+{% endblock opening_div %}
+
+{% block closing_div %}
+    </div>
+{% endblock closing_div %}

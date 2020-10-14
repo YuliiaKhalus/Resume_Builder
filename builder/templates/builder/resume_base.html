@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Resume</title>
+
+<meta name="viewport" content="width=device-width"/>
+<meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
+<meta charset="UTF-8"> 
+
+{% block css_file %}{% endblock css_file %}
+<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<a class="btn btn-outline-secondary" href="{% url 'resume-builder-dashboard' %}">Dashboard</a>
+<body id="top">
+{% block opening_div %}{% endblock opening_div %}
+{% block add_personal_info %}{% endblock add_personal_info %}
+{% block add_we %}{% endblock add_we %}
+{% block add_skill %}{% endblock add_skill %}
+{% block add_education %}{% endblock add_education %}
+{% block closing_div %}{% endblock closing_div %}
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3753241-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>
